@@ -10,17 +10,42 @@ import java.util.List;
 @Repository
 public class ProductRepository {
     private List<Product> productData = new ArrayList<>();
+    private long numberOfProductsCreated = 0;
+
 
     public Product create(Product product){
         productData.add(product);
+        product.setProductId(Long.toString(numberOfProductsCreated));
+        numberOfProductsCreated += 1;
         return product;
     }
 
-    public void delete(Product product){
+    public Product findProductById(String productId){
+        for (Product product : productData){
+            if (product.getProductId().equals(productId)){
+                return product;
+            }
+        }
+        return null;
+    }
+
+    public void delete(String productId){
+        Product product = findProductById(productId);
         productData.remove(product);
     }
 
     public Iterator<Product> findAll(){
         return productData.iterator();
+    }
+
+    public Product editProduct(Product product) {
+        for (int i=0; i<productData.size(); i++){
+            Product productInList = productData.get(i);
+            if (productInList.getProductId().equals(product.getProductId())){
+                productData.set(i, product);
+                return product;
+            }
+        }
+        return null;
     }
 }

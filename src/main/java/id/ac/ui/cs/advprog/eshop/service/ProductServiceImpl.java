@@ -22,8 +22,14 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public void delete(Product product) {
-        productRepository.delete(product);
+    public Product findProductById(String productId){
+        return productRepository.findProductById(productId);
+    }
+
+
+    @Override
+    public void delete(String productId) {
+        productRepository.delete(productId);
     }
 
     @Override
@@ -33,4 +39,11 @@ public class ProductServiceImpl implements ProductService{
         productIterator.forEachRemaining(allProduct::add);
         return allProduct;
     }
+
+    @Override
+    public Product editProduct(Product product) {
+        return (productRepository.editProduct(product));
+    }
+
+
 }
