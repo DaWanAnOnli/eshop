@@ -43,13 +43,14 @@ public class ProductController {
     }
 
 
-//    @GetMapping("/delete/{id}")
-//    public String deleteProduct(@ModelAttribute Product product, Model model) {
-//        service.delete(product);
-//        return "ListProduct";
-//    }
 
 
+
+    @GetMapping("/delete/{productId}")
+    public String deleteProduct(@PathVariable String productId) {
+        service.delete(productId);
+        return "redirect:/product/list";
+    }
 
 
     @GetMapping("/list")
