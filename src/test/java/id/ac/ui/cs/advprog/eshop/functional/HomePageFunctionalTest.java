@@ -1,4 +1,4 @@
-package id.ac.ui.cs.advprog.functional;
+package id.ac.ui.cs.advprog.eshop.functional;
 
 import io.github.bonigarcia.seljup.SeleniumJupiter;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +17,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @ExtendWith(SeleniumJupiter.class)
 class HomePageFunctionalTest {
     /**
-     * The prot number assigned to the running application during test execution.
+     * The port number assigned to the running application during test execution.
      * Set automatically during each test run by Spring Framework's test context.
      */
     @LocalServerPort
@@ -26,7 +26,7 @@ class HomePageFunctionalTest {
     /**
      * The base URL for testing. Default to {@code http://localhost}.
      */
-    @Value("$app.baseUrl:http;//localhost}")
+    @Value("${app.baseUrl:http://localhost}")
     private String testBaseUrl;
 
     private String baseUrl;
@@ -53,7 +53,7 @@ class HomePageFunctionalTest {
         String welcomeMessage = driver.findElement(By.tagName("h3")).getText();
 
         //Verify
-        assertEquals("Welcome", welcomeMessge);
+        assertEquals("Welcome", welcomeMessage);
     }
 
 }
