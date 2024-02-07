@@ -14,6 +14,16 @@ Untuk secure coding, aspek yang relevan untuk modul ini adalah validasi input, y
 
 ### Refleksi 2: 
 
+#### 1
+
+- Perasaan setelah membuat unit test: saya merasa membuat unit test cukup seru, karena saya tidak perlu khawatir salah membuat fungsi. Saya juga semakin 'pede' dalam membuat test.
+- Jumlah unit test dalam class: setiap constructor dan dan method-method yang ada dalam class perlu dibuat unit test masing-masing.
+- Cara memastikan unit test cukup untuk verifikasi program: dengan menguji semua jenis input termasuk input yang tidak valid dan edge-cases.
+- Jika code coverage mencapai 100%, belum tentu code tidak memiliki error. Kita harus pastikan setiap jenis input memiliki output yang sesuai, termasuk edge-case dan invalid input.
+
+
+#### 2
+
 Menurut saya, functional test untuk jumlah item dalam produk list memiliki langkah-langkah yang sangat mirip dengan CreateProductFuntionalTest. Langkah pertama dari kedua tes sama persis, yakni membuat produk baru. Hanya saja tes jumlah item mungkin membutuhkan lebih banyak pembuatan item. Jika setiap pembuatan item ditulis satu-per satu, maka code akan bersifat repetitif; terdapat bagian code pada CreateProductFunctionalTest dan tes jumlah item yang sama persis. Ini akan membuat code tidak 'clean'. 
 
 Solusinya, perlu dibuat method yang berisi implementasi create product, yang disimpan di file yang berbeda dengan kedua file tes. Lalu, kedua tes dapat menggunakan method baru ini untuk melakukan create-product. 
