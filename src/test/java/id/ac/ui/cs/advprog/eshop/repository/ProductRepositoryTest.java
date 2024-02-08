@@ -63,4 +63,62 @@ class ProductRepositoryTest {
         assertEquals(product2.getProductId(), savedProduct.getProductId());
         assertFalse(productIterator.hasNext());
     }
+
+    @Test
+    void testFindProductByIdPositive(){
+        Product product1 = new Product();
+        product1.setProductName("Sampo Cap Bambang");
+        product1.setProductQuantity(100);
+        productRepository.create(product1);
+
+        Product product2 = new Product();
+        product2.setProductName("Sampo Cap Usep");
+        product2.setProductQuantity(50);
+        productRepository.create(product2);
+
+        Product productFound = productRepository.findProductById("1");
+        assertEquals(product2, productFound);
+    }
+    @Test
+    void testFindProductByIdNegative() {
+        Product product = new Product();
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+
+        Product productFound = productRepository.findProductById(product.getProductId());
+        assertNull(productFound);
+    }
+
+    @Test
+    void testDelete(){
+        Product product = new Product();
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+        productRepository.delete(product.getProductId());
+        Product foundProduct = productRepository.findProductById(product.getProductId());
+        assertNull(foundProduct);
+    }
+
+    @Test
+    void testEdit(){
+        Product old_product = new Product();
+        old_product.setProductName("Sampo Cap Bambang");
+        old_product.setProductQuantity(100);
+        productRepository.create(old_product);
+
+        Product new_product = new Product();
+        new_product.setProductId(old_product.getProductId());
+        new_product.setProductName("Sampo Cap Usep");
+        new_product.setProductQuantity(50);
+        productRepository.editProduct(new_product);
+
+        Product product_found = productRepository.findProductById(old_product.getProductId());
+        assertEquals(new_product, product_found);
+        assertEquals(new_product.getProductId(), product_found.getProductId());
+        assertEquals(new_product.getProductName(), product_found.getProductName());
+        assertEquals(new_product.getProductQuantity(), product_found.getProductQuantity());
+    }
 }
