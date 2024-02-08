@@ -87,7 +87,7 @@ class ProductRepositoryTest {
         productRepository.create(product);
 
 
-        Product productFound = productRepository.findProductById(product.getProductId());
+        Product productFound = productRepository.findProductById(product.getProductId()+" ");
         assertNull(productFound);
     }
 
