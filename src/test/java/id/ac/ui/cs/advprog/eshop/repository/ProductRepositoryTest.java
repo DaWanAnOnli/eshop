@@ -120,5 +120,8 @@ class ProductRepositoryTest {
         assertEquals(new_product.getProductId(), product_found.getProductId());
         assertEquals(new_product.getProductName(), product_found.getProductName());
         assertEquals(new_product.getProductQuantity(), product_found.getProductQuantity());
+
+        Product product_not_found = productRepository.findProductById(old_product.getProductId()+"1");
+        assertNull(product_not_found);
     }
 }
