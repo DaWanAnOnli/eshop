@@ -12,6 +12,7 @@ import id.ac.ui.cs.advprog.eshop.controller.ProductController;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.ui.Model;
 import org.springframework.validation.support.BindingAwareConcurrentModel;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Iterator;
 
@@ -22,13 +23,17 @@ class ProductControllerTest {
     Model model;
     ProductController productController;
     Product product;
-    @InjectMocks
-    ProductServiceImpl productService;
 
     @BeforeEach
     void setUp() {
         model = new BindingAwareConcurrentModel();
         productController = new ProductController();
+        ProductServiceImpl service = new ProductServiceImpl();
+        ProductRepository productRepository = new ProductRepository();
+
+        ReflectionTestUtils.setField(service, "productRepository", productRepository);
+        ReflectionTestUtils.setField(productController, "service", service);
+
         product = new Product();
         product.setProductName("Sampo Cap Bambang");
         product.setProductQuantity(100);
@@ -40,36 +45,36 @@ class ProductControllerTest {
         assertEquals("CreateProduct", result);
     }
 
-//    @Test
-//    void testCreateProductPost(){
-//        String result = productController.createProductPost(product, model);
-//        assertEquals("redirect:list", result);
-//    }
-//
-//    @Test
-//    void testEditProductPage(){
-//        String result = productController.editProductPage(model, product.getProductId());
-//        assertEquals("EditProduct", result);
-//    }
-//
-//    @Test
-//    void testEditProductPost(){
-//        String result = productController.editProductPost(product, model);
-//        assertEquals("redirect:/product/list", result);
-//    }
-//
-//    @Test
-//    void testDeleteProduct(){
-//        String result = productController.deleteProduct(product.getProductId());
-//        assertEquals("redirect:/product/list", result);
-//    }
-//
-//
-//    @Test
-//    void testProductListPage(){
-//        String result = productController.productListPage(model);
-//        assertEquals("ListProduct", result);
-//    }
+    @Test
+    void testCreateProductPost(){
+        String result = productController.createProductPost(product, model);
+        assertEquals("redirect:list", result);
+    }
+
+    @Test
+    void testEditProductPage(){
+        String result = productController.editProductPage(model, product.getProductId());
+        assertEquals("EditProduct", result);
+    }
+
+    @Test
+    void testEditProductPost(){
+        String result = productController.editProductPost(product, model);
+        assertEquals("redirect:/product/list", result);
+    }
+
+    @Test
+    void testDeleteProduct(){
+        String result = productController.deleteProduct(product.getProductId());
+        assertEquals("redirect:/product/list", result);
+    }
+
+
+    @Test
+    void testProductListPage(){
+        String result = productController.productListPage(model);
+        assertEquals("ListProduct", result);
+    }
 
 
 }
