@@ -104,24 +104,29 @@ class ProductRepositoryTest {
 
     @Test
     void testEdit(){
-        Product old_product = new Product();
-        old_product.setProductName("Sampo Cap Bambang");
-        old_product.setProductQuantity(100);
-        productRepository.create(old_product);
+        Product product1 = new Product();
+        product1.setProductName("Sampo Cap Bambang");
+        product1.setProductQuantity(100);
+        productRepository.create(product1);
 
-        Product new_product = new Product();
-        new_product.setProductId(old_product.getProductId());
-        new_product.setProductName("Sampo Cap Usep");
-        new_product.setProductQuantity(50);
-        productRepository.editProduct(new_product);
+        Product product2 = new Product();
+        product2.setProductName("Sampo Cap Bambangs");
+        product2.setProductQuantity(101);
+        productRepository.create(product2);
 
-        Product product_found = productRepository.findProductById(old_product.getProductId());
-        assertEquals(new_product, product_found);
-        assertEquals(new_product.getProductId(), product_found.getProductId());
-        assertEquals(new_product.getProductName(), product_found.getProductName());
-        assertEquals(new_product.getProductQuantity(), product_found.getProductQuantity());
+        Product new_product2 = new Product();
+        new_product2.setProductId(product1.getProductId());
+        new_product2.setProductName("Sampo Cap Usep");
+        new_product2.setProductQuantity(50);
+        productRepository.editProduct(new_product2);
 
-        Product product_not_found = productRepository.findProductById(old_product.getProductId()+"1");
+        Product product_found = productRepository.findProductById(product1.getProductId());
+        assertEquals(new_product2, product_found);
+        assertEquals(new_product2.getProductId(), product_found.getProductId());
+        assertEquals(new_product2.getProductName(), product_found.getProductName());
+        assertEquals(new_product2.getProductQuantity(), product_found.getProductQuantity());
+
+        Product product_not_found = productRepository.findProductById(product2.getProductId()+"1");
         assertNull(product_not_found);
     }
 }
