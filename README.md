@@ -27,3 +27,10 @@ Untuk secure coding, aspek yang relevan untuk modul ini adalah validasi input, y
 Menurut saya, functional test untuk jumlah item dalam produk list memiliki langkah-langkah yang sangat mirip dengan CreateProductFuntionalTest. Langkah pertama dari kedua tes sama persis, yakni membuat produk baru. Hanya saja tes jumlah item mungkin membutuhkan lebih banyak pembuatan item. Jika setiap pembuatan item ditulis satu-per satu, maka code akan bersifat repetitif; terdapat bagian code pada CreateProductFunctionalTest dan tes jumlah item yang sama persis. Ini akan membuat code tidak 'clean'. 
 
 Solusinya, perlu dibuat method yang berisi implementasi create product, yang disimpan di file yang berbeda dengan kedua file tes. Lalu, kedua tes dapat menggunakan method baru ini untuk melakukan create-product. 
+
+
+## Modul 2
+
+### Refleksi:
+#### 1
+#### 2
