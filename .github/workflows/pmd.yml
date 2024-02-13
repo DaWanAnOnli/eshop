@@ -1,0 +1,14 @@
+name: PMD
+
+## PMD
+on:
+  push:
+  pull_request:
+
+jobs:
+  tests:
+    name: Run tests
+    runs-on: ubuntu-22.04
+    steps:
+      - name: PMD
+        uses: pmd/pmd-github-action@v1.4.1
