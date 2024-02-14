@@ -32,5 +32,15 @@ Solusinya, perlu dibuat method yang berisi implementasi create product, yang dis
 ## Modul 2
 
 ### Refleksi:
+
 #### 1
+Code saya tidak memiliki isu besar, hanya beberapa isu kecil yang cukup trivial untuk diselesaikan:
+1) Unused imports: menghapus import-import yang tidak dipakai
+2) Import *: mengganti semua import * dengan class spesifiknya saja.
+3) Unecessary modifier: menghapus semua modifier public pada method-method yang tidak dipakai di luar package
+4) Redundant parentheses: menghapus tanda kurung yang tidak diperlukan.
+
 #### 2
+Menurut saya workflow CI/CD yang saya buat telah memenuhi definisi CI/CD.
+- CI (Continuous Integration) merupakan proses automasi testing aplikasi. Baik workflow dari ```ci.yml``` ataupun ```pmd.yml``` akan secara otomatis menjalankan testing setelah push, sehingga sudah memenuhi CI.
+- CD (Continuous Deployment) merupkana poses automasi deployment aplikasi. Saya menggunakan Koyeb untuk deployment yang terhubung langsung dengan branch main dari repository aplikasi saya. Koyeb akan melakukan deployment aplikasi untuk setiap push/pull request ke branch main yang saya buat, sehingga sudah memenuhi CD.
