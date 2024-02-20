@@ -75,7 +75,7 @@ class ProductRepositoryTest {
         product2.setProductQuantity(50);
         productRepository.create(product2);
 
-        Product productFound = productRepository.findProductById("1");
+        Product productFound = productRepository.findById("1");
         assertEquals(product2, productFound);
     }
     @Test
@@ -86,7 +86,7 @@ class ProductRepositoryTest {
         productRepository.create(product);
 
 
-        Product productFound = productRepository.findProductById(product.getProductId()+" ");
+        Product productFound = productRepository.findById(product.getProductId()+" ");
         assertNull(productFound);
     }
 
@@ -97,7 +97,7 @@ class ProductRepositoryTest {
         product.setProductQuantity(100);
         productRepository.create(product);
         productRepository.delete(product.getProductId());
-        Product foundProduct = productRepository.findProductById(product.getProductId());
+        Product foundProduct = productRepository.findById(product.getProductId());
         assertNull(foundProduct);
     }
 
@@ -119,13 +119,13 @@ class ProductRepositoryTest {
         new_product2.setProductQuantity(50);
         productRepository.editProduct(new_product2);
 
-        Product product_found = productRepository.findProductById(product1.getProductId());
+        Product product_found = productRepository.findById(product1.getProductId());
         assertEquals(new_product2, product_found);
         assertEquals(new_product2.getProductId(), product_found.getProductId());
         assertEquals(new_product2.getProductName(), product_found.getProductName());
         assertEquals(new_product2.getProductQuantity(), product_found.getProductQuantity());
 
-        Product product_not_found = productRepository.findProductById(product2.getProductId()+"1");
+        Product product_not_found = productRepository.findById(product2.getProductId()+"1");
         assertNull(product_not_found);
     }
 }
