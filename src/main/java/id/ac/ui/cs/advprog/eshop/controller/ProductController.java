@@ -42,7 +42,7 @@ public class ProductController {
 
     @GetMapping("/edit/{productId}")
     public String editProductPage(Model model, @PathVariable String productId){
-        Product product = service.findProductById(productId);
+        Product product = service.findSpecificProductById(productId);
         model.addAttribute("product", product);
         return "EditProduct";
     }
@@ -59,7 +59,6 @@ public class ProductController {
         return "redirect:/product/list";
     }
 }
-
 
 
 @Controller
@@ -91,7 +90,7 @@ class CarController{
 
     @GetMapping("/editCar/{carId}")
     public String editCarPage(@PathVariable String carId, Model model){
-        Car car = carservice.findById(carId);
+        Car car = carservice.findSpecificProductById(carId);
         model.addAttribute("car", car);
         return "editCar";
     }
@@ -106,7 +105,8 @@ class CarController{
 
     @PostMapping("/deleteCar")
     public String deleteCar(@RequestParam("carId") String carId){
-        carservice.deleteCarById(carId);
+        carservice.delete(carId);
         return "redirect:listCar";
     }
 }
+
