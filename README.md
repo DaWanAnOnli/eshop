@@ -44,3 +44,17 @@ Code saya tidak memiliki isu besar, hanya beberapa isu kecil yang cukup trivial 
 Menurut saya workflow CI/CD yang saya buat telah memenuhi definisi CI/CD.
 - CI (Continuous Integration) merupakan proses automasi testing aplikasi. Baik workflow dari ```ci.yml``` ataupun ```pmd.yml``` akan secara otomatis menjalankan testing setelah push, sehingga sudah memenuhi CI.
 - CD (Continuous Deployment) merupkana poses automasi deployment aplikasi. Saya menggunakan Koyeb untuk deployment yang terhubung langsung dengan branch main dari repository aplikasi saya. Koyeb akan melakukan deployment aplikasi untuk setiap push/pull request ke branch main yang saya buat, sehingga sudah memenuhi CD.
+
+
+
+
+## Modul 3
+
+### Refleksi:
+
+#### 1
+- Single Responsibility Principle: Saya memisahkan kelas-kelas (dalam kasus ini interface) sesuai dengan fungsinya, seperti ```CreateAbstractProductInterface```, ```FindAbstractProductInterface```, ```UpdateAbstractProductInterface```, dll.
+- Open-Closed Principle: Saya memastikan code pada setiap class tidak bergantung pada subclass dari kelas tersebut atau subclass dari kelas-kelas lain (misalnya untuk kebutuhan parsing), sehingga penambahan fitur dapat dilakukan dengan meng-extend class-class yang sudah ada.
+- Liskov Substitution Principle: Karena setiap subclass saya body-nya kosong, otomatis dapat melakukan semua yang dilakukan superclassnya.
+- Inteface Segregation Principle: Saya memisahkan masing-masing interface sesuai fungsinya (mirip SRP)
+- Dependency Inversion Principle: Semua implementasi konkret me-reference ke interface atau abstract class.
