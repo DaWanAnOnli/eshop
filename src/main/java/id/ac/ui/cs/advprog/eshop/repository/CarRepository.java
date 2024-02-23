@@ -7,5 +7,5 @@ import java.util.List;
 import java.util. UUID;
 
 @Repository
-public class CarRepository extends AbstractRepository<Car>{
+public class CarRepository extends AbstractRepository<Car> implements CarRepositoryInterface{
 }

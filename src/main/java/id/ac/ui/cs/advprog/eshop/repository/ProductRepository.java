@@ -9,5 +9,5 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public class ProductRepository extends AbstractRepository<Product>{
+public class ProductRepository extends AbstractRepository<Product> implements ProductRepositoryInterface{
 }

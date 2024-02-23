@@ -2,13 +2,14 @@ package id.ac.ui.cs.advprog.eshop.service;
 
 import id.ac.ui.cs.advprog.eshop.model.AbstractProduct;
 import id.ac.ui.cs.advprog.eshop.repository.AbstractRepository;
+import id.ac.ui.cs.advprog.eshop.repository.AbstractRepositoryInterface;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public interface AbstractServiceInterface<SpecificProduct extends AbstractProduct, SpecificRepository
-        extends AbstractRepository<SpecificProduct>>  {
+        extends AbstractRepositoryInterface<SpecificProduct>>  {
     public SpecificProduct create(SpecificProduct specificProduct);
     public SpecificProduct findSpecificProductById(String id);
     public void delete(String id);

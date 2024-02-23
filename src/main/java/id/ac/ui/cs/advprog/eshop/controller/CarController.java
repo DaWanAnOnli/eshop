@@ -1,20 +1,20 @@
 package id.ac.ui.cs.advprog.eshop.controller;
 
 import id.ac.ui.cs.advprog.eshop.model.Car;
-import id.ac.ui.cs.advprog.eshop.service.CarService;
+import id.ac.ui.cs.advprog.eshop.service.CarServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-//
+
 //@Controller
 //@RequestMapping("/car")
-//class CarController{
+//public class CarController{
 //
 //    @Autowired
-//    private CarService carservice;
+//    private CarServiceInterface carService;
 //
 //    @GetMapping("/createCar")
 //    public String createCarPage(Model model){
@@ -25,20 +25,20 @@ import java.util.List;
 //
 //    @PostMapping("/createCar")
 //    public String createCarPost(@ModelAttribute Car car, Model model){
-//        carservice.create(car);
+//        carService.create(car);
 //        return "redirect:listCar";
 //    }
 //
 //    @GetMapping("/listCar")
 //    public String carListPage(Model model){
-//        List<Car> allCars = carservice.findAll();
+//        List<Car> allCars = carService.findAll();
 //        model.addAttribute("cars", allCars);
 //        return "carList";
 //    }
 //
 //    @GetMapping("/editCar/{carId}")
 //    public String editCarPage(@PathVariable String carId, Model model){
-//        Car car = carservice.findSpecificProductById(carId);
+//        Car car = carService.findSpecificProductById(carId);
 //        model.addAttribute("car", car);
 //        return "editCar";
 //    }
@@ -46,14 +46,14 @@ import java.util.List;
 //    @PostMapping("/editCar")
 //    public String editCarPost(@ModelAttribute Car car, Model model){
 //        System.out.println(car.getId());
-//        carservice.update(car.getId(), car);
+//        carService.update(car.getId(), car);
 //
 //        return "redirect:listCar";
 //    }
 //
 //    @PostMapping("/deleteCar")
 //    public String deleteCar(@RequestParam("carId") String carId){
-//        carservice.delete(carId);
+//        carService.delete(carId);
 //        return "redirect:listCar";
 //    }
 //}
