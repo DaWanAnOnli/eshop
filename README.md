@@ -53,8 +53,22 @@ Menurut saya workflow CI/CD yang saya buat telah memenuhi definisi CI/CD.
 ### Refleksi:
 
 #### 1
-- Single Responsibility Principle: Saya memisahkan kelas-kelas (dalam kasus ini interface) sesuai dengan fungsinya, seperti ```CreateAbstractProductInterface```, ```FindAbstractProductInterface```, ```UpdateAbstractProductInterface```, dll.
+- Single Responsibility Principle: Saya memisahkan kelas-kelas (dalam kasus ini interface) sesuai dengan fungsinya, seperti ```CreateAbstractProductInterface```, ```FindAbstractProductInterface```, ```UpdateAbstractProductInterface```, dll. Namun saya tidak dapat memisahkan ```ProductController``` dari ```CarController```, karena saat saya memasukkan ```CarController``` ke dalam file sendiri, muncul White Page Error, dengan alasan yang tidak jelas.
 - Open-Closed Principle: Saya memastikan code pada setiap class tidak bergantung pada subclass dari kelas tersebut atau subclass dari kelas-kelas lain (misalnya untuk kebutuhan parsing), sehingga penambahan fitur dapat dilakukan dengan meng-extend class-class yang sudah ada.
 - Liskov Substitution Principle: Karena setiap subclass saya body-nya kosong, otomatis dapat melakukan semua yang dilakukan superclassnya.
 - Inteface Segregation Principle: Saya memisahkan masing-masing interface sesuai fungsinya (mirip SRP)
-- Dependency Inversion Principle: Semua implementasi konkret me-reference ke interface atau abstract class.
+- Dependency Inversion Principle: Semua implementasi konkret me-reference ke interface atau abstract class. Sayangnya saya tidak berhasil menerapkannya antara class-class Service dengan interface Repository karena parameter type tidak support 'implements'.
+
+#### 2
+- SRP: code bersifat modular dan dapat dipakai berulang-ulang tanpa harus duplikasi. Contoh: ```FindSpecificProductInterface``` di ```AbstractRepositoryInterface.java```.
+- OCP: jika ingin menambah fitur, tidak harus mengedit code yang ada, tinggal diextend saja. Contoh: jika ada model ```RaceCar```, dapat langsung di-extend dari model, service, dan repository ```Car```
+- LSP: menjaga kekonsistenan antar superclass dan subclass. Contoh: ```ProductRepository``` dan ```AbstractRepository``` memiliki fungsionaltias yang sama persis, hanya saja untuk tipe data yang berbeda.
+- ISP: mengakomodasi pembuatan class-class dengan fungsi spesifik. Contoh: jika memerlukan class spesifik yang dapat menampilkan produk saja, bisa mengimplementasikan ```FindSpecificProductInterface``` saja.
+- DIP: memudahkan programmer untuk melihat method-method suatu class tanpa harus melihat isinya. Contoh: class ```AbstractService``` cukup besar. Jika ingin melihat dan menggunakan method-method class ini, dapat langsung dari ```AbstractServiceInterface``` saja.
+
+#### 3
+- SRP: menyebabkan banyak duplikasi code. Contoh: method ```FindSpecificProduct``` tidak harus eksklusif dipakai di ```AbstractProductRepository```, namun jika tidak dibuatkan class sendiri, class-class lain yang perlu mencari produk perlu refer ke ```AbstractProductRepository``` walaupun sebenarnya tidak berkaitan sama sekali.
+- OCP: perlu mengedit implementasi code yang sudah ada. Contoh: Method yang didalamnya dilakukan pengecekan terhadap setiap jenis produk yang ada. Saat ada produk baru yang muncul, setiap class yang melakukan pengecekan harus diedit -- habis tenaga dan waktu.
+- LSP: superclass dan subclass tidak konsisten. Misal subclass yang meng-override salah satu method superclassnya dengan implementasi yang berbeda. Hal ini membingungan programmer yang mengerjakan class-class turunannya, karena seakan-akan masing-masing class punya aturan masing-masing dan subclass dan superclass hanya sekadar kata saja.
+- ISP: Security -- kita tidak tahu sebuah class sudah memiliki semua method yang dibutuhkan atau belum. Contoh: AbstractRepository memiliki banyak method, sehingga mungkin promgrammer lupa mengimplementasikan salah satunya. Dengan menggunakan interface, programmer dapat mendeteksi apabila semua method yang dibutuhkan telah terimplementasi atau belum.
+- DIP: Programmer harus melihat seluruh implementasi code pada class untuk mengetahui method-method apa yang dimilikinya. Tidak praktis terutama untuk class-class besar seperti ```AbstractServiceInterface```.
