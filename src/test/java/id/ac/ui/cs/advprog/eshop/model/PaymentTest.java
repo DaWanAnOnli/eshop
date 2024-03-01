@@ -60,15 +60,17 @@ public class PaymentTest {
         assertEquals("id-1", payment.getId());
         assertEquals("VOUCHER_CODE", payment.getMethod());
         assertEquals("WAITING", payment.getStatus());
-        assertEquals(paymentData, payment.getPaymentData());
+        assertEquals(paymentDataVoucherCode, payment.getPaymentData());
     }
 
+    @Test
     void testCreatePaymentInvalidMethod(){
         assertThrows(IllegalArgumentException.class, () -> {
             Payment payment = new Payment("id-1", "VOUCHER_CODED", paymentDataVoucherCode);
         });
     }
 
+    @Test
     void testCreatePaymentInvalidPaymentData(){
 
         assertThrows(IllegalArgumentException.class, () -> {
@@ -76,28 +78,32 @@ public class PaymentTest {
         });
     }
 
+    @Test
     void testCreatePaymentSuccessStatus(){
         Payment payment = new Payment("id-1", "VOUCHER_CODE", "SUCCESS", paymentDataVoucherCode);
 
         assertEquals("id-1", payment.getId());
         assertEquals("VOUCHER_CODE", payment.getMethod());
         assertEquals("SUCCESS", payment.getStatus());
-        assertEquals(paymentData, payment.getPaymentData());
+        assertEquals(paymentDataVoucherCode, payment.getPaymentData());
     }
 
+    @Test
     void testCreatePaymentInvalidStatus(){
         assertThrows(IllegalArgumentException.class, () -> {
             Payment payment = new Payment("id-1", "VOUCHER_CODE", "MEOW", paymentDataCashOnDelivery);
         });
     }
 
+    @Test
     void testEditPaymentWithCancelledStatus(){
         Payment payment = new Payment("id-1", "VOUCHER_CODE", paymentDataVoucherCode);
         payment.setStatus("CANCELLED");
         assertEquals("CANCELLED", payment.getStatus());
     }
 
-    void testEditPaymentWithCancelledStatus(){
+    @Test
+    void testEditPaymentWithInvalidStatus(){
         Payment payment = new Payment("id-1", "VOUCHER_CODE", paymentDataVoucherCode);
         payment.setStatus("MEOW");
         assertThrows(IllegalArgumentException.class, () -> payment.setStatus("MEOW"));
