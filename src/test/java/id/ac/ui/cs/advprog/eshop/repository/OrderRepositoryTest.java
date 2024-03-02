@@ -101,6 +101,7 @@ public class OrderRepositoryTest {
         assertEquals(2, orderList.size());
     }
 
+    @Test
     void testFindALlByAuthorIfAllLowercase(){
         orderRepository.save(orders.get(1));
 
