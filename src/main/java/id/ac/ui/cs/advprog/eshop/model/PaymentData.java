@@ -36,4 +36,17 @@ public interface PaymentData {
         return cashOnDeliveryKeys;
     }
 
+    public static HashMap<String, String> getNewVoucherCodeData(){
+        HashMap<String, String> result = new HashMap<String, String>();
+        result.put("voucherCode", "");
+        return result;
+    }
+
+    public static HashMap<String, String> getNewCashOnDeliveryData(){
+        HashMap<String, String> result = new HashMap<String, String>();
+        result.put("address", "");
+        result.put("deliveryFee", "");
+        return result;
+    }
+
 }

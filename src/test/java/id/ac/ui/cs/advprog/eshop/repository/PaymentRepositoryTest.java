@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -22,9 +23,9 @@ public class PaymentRepositoryTest {
 
         payments = new ArrayList<>();
 
-        paymentData1 = PaymentData.getNewVoucherCodeData();
+        HashMap<String, String> paymentData1 = PaymentData.getNewVoucherCodeData();
         Payment payment1 = new Payment("id-1", "VOUCHER_CODE", paymentData1);
-        paymentData2 = PaymentData.getNewCashOnDeliveryData();
+        HashMap<String, String> paymentData2 = PaymentData.getNewCashOnDeliveryData();
         Payment payment2 = new Payment("id-1", "CASH_ON_DELIVERY", paymentData2);
 
         payments.add(payment1);
@@ -56,7 +57,7 @@ public class PaymentRepositoryTest {
 
     @Test
     void testSetStatusWithInvalidPayment(){
-        paymentData3 = PaymentData.getNewCashOnDeliveryData();
+        HashMap<String, String> paymentData3 = PaymentData.getNewCashOnDeliveryData();
         Payment payment3 = new Payment("id-3", "CASH_ON_DELIVERY", paymentData3);
 
         assertThrows(IllegalArgumentException.class, () -> {
@@ -67,7 +68,7 @@ public class PaymentRepositoryTest {
     @Test
     void testGetPayment(){
         for (Payment payment : payments){
-            PaymentRepository.addPayment(payment);
+            paymentRepository.addPayment(payment);
         }
 
         Payment findResult = paymentRepository.getPayment(payments.get(1).getId());
@@ -80,7 +81,7 @@ public class PaymentRepositoryTest {
     @Test
     void testGetPaymentInvalidId() {
         for (Payment payment : payments) {
-            PaymentRepository.addPayment(payment);
+            paymentRepository.addPayment(payment);
         }
 
         assertThrows(IllegalArgumentException.class, () -> {
@@ -97,7 +98,7 @@ public class PaymentRepositoryTest {
     @Test
     void testGetAllPaymentsIfMoreThanOne(){
         for (Payment payment : payments){
-            PaymentRepository.addPayment(payment);
+            paymentRepository.addPayment(payment);
         }
 
         Iterator<Payment> paymentIterator = paymentRepository.getAllPayments();
