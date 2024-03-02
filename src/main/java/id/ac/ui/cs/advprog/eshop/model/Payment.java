@@ -75,8 +75,4 @@ public class Payment {
 }
 
 
-class PaymentMethodData{
-    String method;
-    HashMap<String, String> paymentData;
 
-}
