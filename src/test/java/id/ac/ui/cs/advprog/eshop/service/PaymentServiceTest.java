@@ -66,22 +66,23 @@ public class PaymentServiceTest {
         HashMap<String, String> paymentData = PaymentData.getNewVoucherCodeData
                 ("voucherCode-1");
         Payment result = paymentService.addPayment
-                (orders.getFirst(), PaymentMethod.VOUCHER_CODE, paymentData);
-        verify(paymentRepository, times(1)).addPayment(payment);
+                (orders.getFirst(), PaymentMethod.VOUCHER_CODE.getValue(), paymentData);
+        verify(paymentRepository, times(1)).addPayment(result);
     }
 
     @Test
     void testAddPaymentIfOrderAlreadyExists(){
-        HashMap<String, String> paymentData1 = PaymentData.getNewVoucherCodeData
+        HashMap<String, String> paymentData = PaymentData.getNewVoucherCodeData
                 ("voucherCode-1");
         Payment result = paymentService.addPayment
-                (orders.getFirst(), PaymentMethod.VOUCHER_CODE, paymentData);
+                (orders.getFirst(), PaymentMethod.VOUCHER_CODE.getValue(), paymentData);
+        verify(paymentRepository, times(1)).addPayment(result);
 
         HashMap<String, String> paymentData2 = PaymentData.getNewVoucherCodeData
                 ("voucherCode-2");
         Payment result1 = paymentService.addPayment
-                (orders.getFirst(), PaymentMethod.VOUCHER_CODE, paymentData2);
-        verify(paymentRepository, times(1)).addPayment(payment);
+                (orders.getFirst(), PaymentMethod.VOUCHER_CODE.getValue(), paymentData2);
+        verify(paymentRepository, times(0)).addPayment(result1);
     }
 
     @Test
@@ -89,7 +90,7 @@ public class PaymentServiceTest {
         HashMap<String, String> paymentData = PaymentData.getNewVoucherCodeData
                 ("voucherCode-1");
         Payment payment = paymentService.addPayment
-                (orders.getFirst(), PaymentMethod.VOUCHER_CODE, paymentData);
+                (orders.getFirst(), PaymentMethod.VOUCHER_CODE.getValue(), paymentData);
         Payment result = paymentService.setStatus(payment, PaymentStatus.REJECTED.getValue());
         assertEquals(PaymentStatus.REJECTED.getValue(), result.getStatus());
         assertEquals(OrderStatus.FAILED.getValue(), orders.getFirst().getStatus());
@@ -101,7 +102,7 @@ public class PaymentServiceTest {
         HashMap<String, String> paymentData = PaymentData.getNewVoucherCodeData
                 ("voucherCode-1");
         Payment payment = paymentService.addPayment
-                (orders.getFirst(), PaymentMethod.VOUCHER_CODE, paymentData);
+                (orders.getFirst(), PaymentMethod.VOUCHER_CODE.getValue(), paymentData);
         Payment result = paymentService.getPayment(payment.getId());
         assertEquals(payment, result);
     }
@@ -113,9 +114,9 @@ public class PaymentServiceTest {
                 ("voucherCode-2");
 
         Payment payment1 = paymentService.addPayment
-                (orders.getFirst(), PaymentMethod.VOUCHER_CODE, paymentData1);
+                (orders.getFirst(), PaymentMethod.VOUCHER_CODE.getValue(), paymentData1);
         Payment payment2 = paymentService.addPayment
-                (orders.get(1), PaymentMethod.VOUCHER_CODE, paymentData2);
+                (orders.get(1), PaymentMethod.VOUCHER_CODE.getValue(), paymentData2);
 
         List<Payment> paymentList = new ArrayList<>();
         paymentList.add(payment1);
