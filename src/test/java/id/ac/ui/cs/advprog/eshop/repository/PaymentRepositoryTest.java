@@ -26,7 +26,7 @@ public class PaymentRepositoryTest {
         HashMap<String, String> paymentData1 = PaymentData.getNewVoucherCodeData();
         Payment payment1 = new Payment("id-1", "VOUCHER_CODE", paymentData1);
         HashMap<String, String> paymentData2 = PaymentData.getNewCashOnDeliveryData();
-        Payment payment2 = new Payment("id-1", "CASH_ON_DELIVERY", paymentData2);
+        Payment payment2 = new Payment("id-2", "CASH_ON_DELIVERY", paymentData2);
 
         payments.add(payment1);
         payments.add(payment2);
@@ -52,7 +52,7 @@ public class PaymentRepositoryTest {
 
         Payment result = paymentRepository.setStatus(payment, PaymentStatus.SUCCESS.getValue());
         assertEquals(payment.getId(), result.getId());
-        assertEquals(payment.getStatus(), result.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), result.getStatus());
     }
 
     @Test
@@ -97,8 +97,10 @@ public class PaymentRepositoryTest {
 
     @Test
     void testGetAllPaymentsIfMoreThanOne(){
+        int i = 0;
         for (Payment payment : payments){
             paymentRepository.addPayment(payment);
+            i += 1;
         }
 
         Iterator<Payment> paymentIterator = paymentRepository.getAllPayments();
