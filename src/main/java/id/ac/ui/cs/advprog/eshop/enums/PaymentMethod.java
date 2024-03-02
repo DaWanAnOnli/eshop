@@ -2,6 +2,8 @@ package id.ac.ui.cs.advprog.eshop.enums;
 
 import lombok.Getter;
 
+import java.util.HashMap;
+
 @Getter
 public enum PaymentMethod {
     VOUCHER_CODE("VOUCHER_CODE"),
