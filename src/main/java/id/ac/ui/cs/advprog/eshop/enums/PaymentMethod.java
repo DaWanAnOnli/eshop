@@ -7,8 +7,7 @@ import java.util.HashMap;
 @Getter
 public enum PaymentMethod {
     VOUCHER_CODE("VOUCHER_CODE"),
-    CASH_ON_DELIVERY("CASH_ON_DELIVERY"),
-    BANK_TRANSFER("BANK_TRANSFER");
+    CASH_ON_DELIVERY("CASH_ON_DELIVERY");
 
 
     private final String value;
