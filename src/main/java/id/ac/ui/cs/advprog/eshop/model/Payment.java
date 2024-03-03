@@ -29,7 +29,11 @@ public class Payment {
     }
 
     public Payment(String id, String method, HashMap<String,String> paymentData){
-        this.id = id;
+        if(this.getId() == null){
+            UUID uuid = UUID.randomUUID();
+            this.id = (uuid.toString());
+        }
+
         this.status = PaymentStatus.WAITING.getValue();
 
         if (PaymentMethod.contains(method)){

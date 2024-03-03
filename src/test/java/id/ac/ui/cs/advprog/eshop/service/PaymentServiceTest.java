@@ -14,28 +14,31 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class PaymentServiceTest {
 
-    @InjectMocks
+
     PaymentServiceImpl paymentService;
 
-    @Mock
+
     PaymentRepository paymentRepository;
     List<Order> orders;
     List<Payment> payments;
 
     @BeforeEach
     void setUp(){
+        paymentService = new PaymentServiceImpl();
+        paymentRepository = new PaymentRepository();
+        ReflectionTestUtils.setField(paymentService, "paymentRepository", paymentRepository);
         List<Product> products = new ArrayList<>();
         Product product1 = new Product();
         product1.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
@@ -57,6 +60,7 @@ public class PaymentServiceTest {
                 ("address-1", "deliveryFee-1");
         Payment payment2 = new Payment("id-2", "CASH_ON_DELIVERY", paymentData2);
 
+        payments = new ArrayList<>();
         payments.add(payment1);
         payments.add(payment2);
     }
@@ -67,6 +71,7 @@ public class PaymentServiceTest {
                 ("voucherCode-1");
         Payment result = paymentService.addPayment
                 (orders.getFirst(), PaymentMethod.VOUCHER_CODE.getValue(), paymentData);
+        System.out.println(result);
         verify(paymentRepository, times(1)).addPayment(result);
     }
 
@@ -103,6 +108,8 @@ public class PaymentServiceTest {
                 ("voucherCode-1");
         Payment payment = paymentService.addPayment
                 (orders.getFirst(), PaymentMethod.VOUCHER_CODE.getValue(), paymentData);
+
+
         Payment result = paymentService.getPayment(payment.getId());
         assertEquals(payment, result);
     }
@@ -122,8 +129,11 @@ public class PaymentServiceTest {
         paymentList.add(payment1);
         paymentList.add(payment2);
 
+
         List<Payment> result = paymentService.getAllPayments();
-        for (int i=0; i<= result.size(); i++){
+
+
+        for (int i=0; i< result.size(); i++){
             assertEquals(paymentList.get(i), result.get(i));
         }
 
