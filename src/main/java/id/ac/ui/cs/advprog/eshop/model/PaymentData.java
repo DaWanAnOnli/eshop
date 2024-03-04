@@ -14,8 +14,7 @@ public interface PaymentData {
                 if (!paramKeySet.equals(voucherCodeKeySet)){
                     yield false;
                 }
-                yield true;
-
+                yield checkVoucherCode(param.get("voucherCode"));
 
             }
             case "CASH_ON_DELIVERY" -> {
@@ -23,13 +22,14 @@ public interface PaymentData {
                 if (!paramKeySet.equals(cashOnDeliveryKeySet)){
                     yield false;
                 }
-                yield true;
-
+                yield (isStringEmpty(param.get("address")) ||
+                        isStringEmpty(param.get("deliveryFee")));
 
             }
             default -> false;
         };
     }
+
 
     public static Set<String> getVoucherCodeKeySet() {
         Set<String> voucherCodeKeys = new HashSet<>();
@@ -57,6 +57,32 @@ public interface PaymentData {
         result.put("address", "");
         result.put("deliveryFee", "");
         return result;
+    }
+
+
+    public static boolean checkVoucherCode(String voucherCode) {
+        if (voucherCode.length() != 16) {
+            return false;
+        }
+
+        if (!voucherCode.startsWith("ESHOP")) {
+            return false;
+        }
+
+        int numberCount = 0;
+        for (char character : voucherCode.toCharArray()) {
+            if (Character.isDigit(character)) {
+                numberCount++;
+            }
+        }
+
+        return numberCount == 8;
+
+
+    }
+
+    public static boolean isStringEmpty(String str){
+        return (str == null || str.isEmpty());
     }
 
 }
