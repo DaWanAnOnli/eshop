@@ -5,30 +5,40 @@ import java.util.HashSet;
 import java.util.Set;
 
 public interface PaymentData {
-    public static boolean checkData(String method, HashMap<String, String> param){
+    public static boolean checkData(String method, HashMap<String, String> param) {
         Set<String> paramKeySet = param.keySet();
 
         return switch (method) {
             case "VOUCHER_CODE" -> {
                 Set<String> voucherCodeKeySet = getVoucherCodeKeySet();
-                yield paramKeySet.equals(voucherCodeKeySet);
+                if (!paramKeySet.equals(voucherCodeKeySet)){
+                    yield false;
+                }
+                yield true;
+
+
             }
             case "CASH_ON_DELIVERY" -> {
                 Set<String> cashOnDeliveryKeySet = getCashOnDeliveryKeySet();
-                yield paramKeySet.equals(cashOnDeliveryKeySet);
+                if (!paramKeySet.equals(cashOnDeliveryKeySet)){
+                    yield false;
+                }
+                yield true;
+
+
             }
             default -> false;
         };
     }
 
-    public static Set<String> getVoucherCodeKeySet(){
+    public static Set<String> getVoucherCodeKeySet() {
         Set<String> voucherCodeKeys = new HashSet<>();
         voucherCodeKeys.add("voucherCode");
 
         return voucherCodeKeys;
     }
 
-    public static Set<String> getCashOnDeliveryKeySet(){
+    public static Set<String> getCashOnDeliveryKeySet() {
         Set<String> cashOnDeliveryKeys = new HashSet<>();
         cashOnDeliveryKeys.add("address");
         cashOnDeliveryKeys.add("deliveryFee");
@@ -36,13 +46,13 @@ public interface PaymentData {
         return cashOnDeliveryKeys;
     }
 
-    public static HashMap<String, String> getNewVoucherCodeData(String voucherCode){
+    public static HashMap<String, String> getNewVoucherCodeData(String voucherCode) {
         HashMap<String, String> result = new HashMap<String, String>();
         result.put("voucherCode", voucherCode);
         return result;
     }
 
-    public static HashMap<String, String> getNewCashOnDeliveryData(String address, String deliveryFee){
+    public static HashMap<String, String> getNewCashOnDeliveryData(String address, String deliveryFee) {
         HashMap<String, String> result = new HashMap<String, String>();
         result.put("address", "");
         result.put("deliveryFee", "");
