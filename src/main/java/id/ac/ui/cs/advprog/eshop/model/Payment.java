@@ -29,9 +29,12 @@ public class Payment {
     }
 
     public Payment(String id, String method, HashMap<String,String> paymentData){
-        if(this.getId() == null){
+        if(id == null){
             UUID uuid = UUID.randomUUID();
             this.id = (uuid.toString());
+        }
+        else{
+            this.id = id;
         }
 
         this.status = PaymentStatus.WAITING.getValue();
