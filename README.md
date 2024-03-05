@@ -71,4 +71,30 @@ Menurut saya workflow CI/CD yang saya buat telah memenuhi definisi CI/CD.
 - OCP: perlu mengedit implementasi code yang sudah ada. Contoh: Method yang didalamnya dilakukan pengecekan terhadap setiap jenis produk yang ada. Saat ada produk baru yang muncul, setiap class yang melakukan pengecekan harus diedit -- habis tenaga dan waktu.
 - LSP: superclass dan subclass tidak konsisten. Misal subclass yang meng-override salah satu method superclassnya dengan implementasi yang berbeda. Hal ini membingungan programmer yang mengerjakan class-class turunannya, karena seakan-akan masing-masing class punya aturan masing-masing dan subclass dan superclass hanya sekadar kata saja.
 - ISP: Security -- kita tidak tahu sebuah class sudah memiliki semua method yang dibutuhkan atau belum. Contoh: AbstractRepository memiliki banyak method, sehingga mungkin promgrammer lupa mengimplementasikan salah satunya. Dengan menggunakan interface, programmer dapat mendeteksi apabila semua method yang dibutuhkan telah terimplementasi atau belum.
-- DIP: Programmer harus melihat seluruh implementasi code pada class untuk mengetahui method-method apa yang dimilikinya. Tidak praktis terutama untuk class-class besar seperti ```AbstractServiceInterface```.
+- DIP: Programmer harus melihat seluruh implementasi code pada class untuk mengetahui method-method apa yang dimilikinya. Tidak praktis terutama untuk class-class besar seperti
+- ```AbstractServiceInterface`
+
+
+## Modul 3
+
+### Refleksi:
+
+#### 1
+Pertanyaan Refleksi:
+- Functional Test? Tutorial hanya mengenai unit test, jadi belum ada functional test.
+- Edge Cases? Semua kemungkinan pada program sudah dibuatkan tesnya.
+- All components fit together? Ini belum dapat dipastikan karena belum dibuat functional test.
+- Keyakinan untuk melakukan refactor? Ya, karena semua kemungkinan telah dites, hasil refactor dapat diuji menggunakan test-test yang sama.
+- Membantu membuat desain yang baik? Efek ini belum terasa karena TDD memaksa saya membuat test untuk desain yang belum ada.
+- Feedback cycle yang cepat? Ya, setiap kali melakukan refactor, jalankan semua test lagi, maka akan muncul feedback mengenai apakah hasil refactoring saya sudah benar atau belum.
+- Integration test yang lebih cepat? Tutorial kali ini tidak membahas integration test.
+- Menjalankan subset dari test suite? Ya, masing-masing tes dapat dijalankan secara independen.
+- Terlalu lama menunggu test? Tidak, karena test yang dipakai pendek-pendek.
+
+
+#### 2
+- Fast: Kecuali setUp kali petama, unit test berjalan dengan cepat (kurang dari 10 detik).
+- Isolated: Tidak 100%. Misal untuk ```testEditOrder```, kita perlu membuat ```order``` yang ingin diedit terlebih dahulu. Proses pembuatan order itu sendiri ditest pada ```testCreateOrder```. Sehingga ```testEditOrder``` hanya bisa sukses bila ```testCreateOrder```. Menurut saya tidak ada jalan keluar untuk masalah ini (setidaknya dengan metode testing yang sudah dipelajari). Memang kedua function ini harus dites, dan satu bergantung pada yang lain.
+- Repeatable: Ya, jika tidak ada perubahan pada code, hasil test tidak akan berubah juga. Selain itu, setiap variable yang diakses masing-masing test akan direset pada setUp(), sehingga test dapat dijalankan berkali-kali tanpa mengubah bagian code lain.
+- Self-Validating: Ya, setiap hasil tes merepresentasikan kondisi sebenarnya dari program, baik success maupun fail.
+- Thorough: Ya, tes sudah mencakup semua kemungkinan pada code, termasuk input-input yang salah. 
